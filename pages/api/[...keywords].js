@@ -28,8 +28,12 @@ export default async function handler(req, res) {
                                 for (let index = 0; index < (req.query.keywords).length; index++) {
                                         url += "/" + req.query.keywords[index]
                                 }
+                                delete req.query.keywords
+                                if (Object.keys(req.query).length != 0) {
+                                        url += "?" + new URLSearchParams(req.query).toString()
+                                }
                         }
-                        
+
                         var data = await fetch("http://89.108.83.252:1317" + url, {
                                 mode: 'cors',
                         });
